@@ -1,4 +1,6 @@
 import express from 'express';
+import authRoutes from './modules/auth/auth.routes.ts'
+import { errorHandler } from './middlewares/errorHandling.ts';
 
 const app = express();
 
@@ -11,5 +13,9 @@ app.get('/health', (req,res)=>{
         message: 'Server is healthy'
     })
 })
+
+app.use('/auth', authRoutes);
+
+app.use(errorHandler);
 
 export default app;
