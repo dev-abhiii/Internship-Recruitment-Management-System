@@ -2,9 +2,10 @@ import zod from 'zod';
 import asyncHandler from 'express-async-handler';
 import prisma from '../../db.ts';
 import bycrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 
-//validation
+// registeration schema
 const registerSchema = zod.object({
     name: zod.string().min(1, 'Name is required'),
     email: zod.string().email('Invalid email'),
@@ -50,3 +51,42 @@ export const registerUser = asyncHandler(async (req, res) => {
 
 });
 
+// login schema
+const loginSchema = zod.object({
+    email: zod.string().email('Invalid email'),
+    password: zod.string().min(1, 'Password required')
+});
+
+// login controller
+export const loginUser = asyncHandler(async (req, res) => {
+
+    const validData = loginSchema.parse(req.body);
+
+    const user = await prisma.user.findUnique({
+        where: { email: validData.email }
+    })
+
+    if(!user){
+        res.status(400).json({ message: `No user found with mail: ${validData.email}` });
+        return;
+    }
+
+    const isMatch = await bycrypt.compare(validData.password, user.password);
+
+    if(!isMatch){
+        res.status(400).json({ message: 'Invalid credentials' });
+        return;
+    }
+
+    const token = jwt.sign(
+        { userId: user.id, role: user.role },
+        process.env.JWT_SECRET_KEY || 'this_should be hidden',
+        { expiresIn: '2h' }
+    );
+
+    res.status(200).json({ 
+        message: "Login successful",
+        token
+    });
+
+});
