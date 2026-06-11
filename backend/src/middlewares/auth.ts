@@ -10,6 +10,7 @@ export interface AuthRequest extends Request{
     };
 }
 
+// token verification
 export const protect = asyncHandler(async (req: AuthRequest, res: Response, next: NextFunction)=>{
     let token;
 

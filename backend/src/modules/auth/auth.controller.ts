@@ -1,4 +1,4 @@
-import zod, { date } from 'zod';
+import zod, { date, success } from 'zod';
 import asyncHandler from 'express-async-handler';
 import prisma from '../../db.ts';
 import bycrypt from 'bcrypt';
@@ -7,7 +7,7 @@ import { env } from '../../config/env.ts';
 import type { AuthRequest } from '../../middlewares/auth.ts';
 
 
-// registeration schema
+// ZOD schema
 const registerSchema = zod.object({
     name: zod.string().min(1, 'Name is required'),
     email: zod.string().email('Invalid email'),
@@ -15,8 +15,13 @@ const registerSchema = zod.object({
     role: zod.enum(['ADMIN', 'CANDIDATE', 'RECRUITER'])
 });
 
+const loginSchema = zod.object({
+    email: zod.string().email('Invalid email'),
+    password: zod.string().min(1, 'Password required')
+});
 
-// registration controller
+
+// Controller methods
 export const registerUser = asyncHandler(async (req, res) => {
 
     const validData = registerSchema.parse(req.body);
@@ -26,7 +31,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     })
 
     if(user){
-        res.status(400).json({ message: `User already exists with mail: ${validData.email}` });
+        res.status(400).json({ success: false ,message: `User already exists with mail: ${validData.email}` });
         return;
     }
 
@@ -44,6 +49,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     });
 
     res.status(201).json({ 
+        success: true,
         message: "User registered successfully",
         data: {
             name: newUser.name,
@@ -53,13 +59,8 @@ export const registerUser = asyncHandler(async (req, res) => {
 
 });
 
-// login schema
-const loginSchema = zod.object({
-    email: zod.string().email('Invalid email'),
-    password: zod.string().min(1, 'Password required')
-});
 
-// login controller
+
 export const loginUser = asyncHandler(async (req, res) => {
 
     const validData = loginSchema.parse(req.body);
@@ -76,7 +77,7 @@ export const loginUser = asyncHandler(async (req, res) => {
     const isMatch = await bycrypt.compare(validData.password, user.password);
 
     if(!isMatch){
-        res.status(400).json({ message: 'Invalid credentials' });
+        res.status(400).json({ success: false, message: 'Invalid credentials' });
         return;
     }
 
@@ -87,6 +88,7 @@ export const loginUser = asyncHandler(async (req, res) => {
     );
 
     res.status(200).json({ 
+        success: true,
         message: "Login successful",
         token
     });
@@ -112,6 +114,7 @@ export const Profile = asyncHandler(async(req:AuthRequest, res) => {
     }
 
     res.status(200).json({
+        success: true,
         data: user
     });
 });
