@@ -1,8 +1,10 @@
-import zod from 'zod';
+import zod, { date } from 'zod';
 import asyncHandler from 'express-async-handler';
 import prisma from '../../db.ts';
 import bycrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { env } from '../../config/env.ts';
+import type { AuthRequest } from '../../middlewares/auth.ts';
 
 
 // registeration schema
@@ -80,7 +82,7 @@ export const loginUser = asyncHandler(async (req, res) => {
 
     const token = jwt.sign(
         { userId: user.id, role: user.role },
-        process.env.JWT_SECRET_KEY || 'this_should be hidden',
+        env.JWT_SECRET_KEY, // need to get seret like this bcs it expects an  process.env.JWT_SECRET_KEY || fallback but that can be a security issue
         { expiresIn: '2h' }
     );
 
@@ -89,4 +91,27 @@ export const loginUser = asyncHandler(async (req, res) => {
         token
     });
 
+});
+
+export const Profile = asyncHandler(async(req:AuthRequest, res) => {
+
+    const user = await prisma.user.findUnique({
+        where: { id: req.user?.userId},
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            created_at: true
+        }
+    });
+
+    if(!user){
+        res.status(404);
+        throw new Error("User not found");
+    }
+
+    res.status(200).json({
+        data: user
+    });
 });
