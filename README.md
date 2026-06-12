@@ -146,5 +146,3 @@ This API is configured for deployment on platforms like **Render**, using **Supa
 * **Start Command:** `npm start`
 
 > **Note on IPv4 Environments:** When deploying on free-tier services that utilize IPv4 networks (like Render), ensure your Supabase `DATABASE_URL` uses the **Session Pooler** connection string rather than the Direct Connection string to prevent DNS resolution errors.
-
-```

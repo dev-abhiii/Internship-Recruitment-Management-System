@@ -110,5 +110,3 @@ Functions as a junction table connecting a Candidate to a specific Internship.
 
 * **User Deletion:** Deleting a `User` will cascade and delete all `Internships` they created and `Applications` they submitted.
 * **Internship Deletion:** Deleting an `Internship` will cascade and delete all associated `Applications` to prevent orphan records.
-
-```

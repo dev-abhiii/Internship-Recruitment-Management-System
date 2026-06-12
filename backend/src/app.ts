@@ -17,6 +17,14 @@ app.get('/health', (req,res)=>{
     })
 })
 
+// home page
+app.get('/', (req,res)=>{
+    res.status(200).json({
+        success: true,
+        message: 'Welcome to the Internship Management System API'
+    })
+});
+
 app.use('/auth', authRoutes);
 app.use('/internships', internshipRoutes);
 app.use('/applications', applicationRoutes);
