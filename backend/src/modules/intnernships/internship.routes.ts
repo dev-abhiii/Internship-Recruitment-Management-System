@@ -5,13 +5,13 @@ import {apply, getAllApplication} from "../applications/application.controller.t
 
 const router = Router();
 
-router.get('/', protect, getInternship);
-router.get('/:id', protect, getSingleInternship);
-router.post('/', protect, allowedRoles('RECRUITER'), createInternship);
+router.get('/', protect, getInternship); //
+router.get('/:id', protect, getSingleInternship); //
+router.post('/', protect, allowedRoles('RECRUITER'), createInternship);//
 router.put('/:id', protect, allowedRoles('RECRUITER'), updateInternship);
-router.delete('/:id',protect, allowedRoles('RECRUITER'), deleteInternship);
+router.delete('/:id',protect, allowedRoles('RECRUITER'), deleteInternship);//
 
-router.post('/:id/apply', protect, allowedRoles('CANDIDATE'), apply)
-router.get('/:id/applications', protect, allowedRoles('RECRUITER'), getAllApplication);
+router.post('/:id/apply', protect, allowedRoles('CANDIDATE'), apply) //
+router.get('/:id/applications', protect, allowedRoles('RECRUITER'), getAllApplication);//
 
 export default router;
