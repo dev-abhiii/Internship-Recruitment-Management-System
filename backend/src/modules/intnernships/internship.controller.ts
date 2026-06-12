@@ -127,7 +127,7 @@ export const updateInternship = asyncHandler(async(req: AuthRequest,res) =>{
 
     res.status(200).json({
         success: true,
-        message: "Internship update successfully",
+        message: "Internship updated successfully",
         data: updateInternship
     })
 })

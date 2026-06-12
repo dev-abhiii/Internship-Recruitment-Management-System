@@ -1,6 +1,7 @@
 import express from 'express';
 import authRoutes from './modules/auth/auth.routes.ts'
 import internshipRoutes from './modules/intnernships/internship.routes.ts'
+import applicationRoutes from './modules/applications/application.routes.ts'
 import { errorHandler } from './middlewares/errorHandling.ts';
 
 const app = express();
@@ -17,6 +18,7 @@ app.get('/health', (req,res)=>{
 
 app.use('/auth', authRoutes);
 app.use('/internships', internshipRoutes);
+app.use('/applications', applicationRoutes);
 
 app.use(errorHandler);
 

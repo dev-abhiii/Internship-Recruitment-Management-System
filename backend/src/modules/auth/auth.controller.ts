@@ -31,7 +31,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     })
 
     if(user){
-        res.status(400).json({ success: false ,message: `User already exists with mail: ${validData.email}` });
+        res.status(400).json({ message: `User already exists with mail: ${validData.email}` });
         return;
     }
 
@@ -77,7 +77,7 @@ export const loginUser = asyncHandler(async (req, res) => {
     const isMatch = await bycrypt.compare(validData.password, user.password);
 
     if(!isMatch){
-        res.status(400).json({ success: false, message: 'Invalid credentials' });
+        res.status(400).json({ message: 'Invalid credentials' });
         return;
     }
 

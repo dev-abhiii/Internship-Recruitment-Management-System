@@ -8,83 +8,82 @@ datasource db {
 
 // ENUMS
 
-enum Role{
-    ADMIN
-    RECRUITER
-    CANDIDATE
+enum Role {
+  ADMIN
+  RECRUITER
+  CANDIDATE
 }
 
-enum InternshipStatus{
-    OPEN
-    CLOSED
+enum InternshipStatus {
+  OPEN
+  CLOSED
 }
 
-enum ApplicationStatus{
-    APPLIED
-    SHORTLISTED
-    INTERVIEW_SCHEDULED
-    REJECTED
-    SELECTED
+enum ApplicationStatus {
+  APPLIED
+  SHORTLISTED
+  INTERVIEW_SCHEDULED
+  REJECTED
+  SELECTED
 }
 
 // MODELS
 
-model User{
-    id          String      @id @default(uuid())
-    name        String      
-    email       String      @unique
-    password    String      
-    role        Role
+model User {
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+  role     Role
 
-    is_active Boolean @default(true)
+  is_active Boolean @default(true)
 
-    created_at DateTime @default(now()) 
-    updated_at DateTime @updatedAt 
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-    // realtions
-    internships     Internship[]
-    applications    Application[]
+  // realtions
+  internships  Internship[]
+  applications Application[]
 
-    @@map("users")
-
+  @@map("users")
 }
 
-model Internship{
-    id          String      @id @default(uuid())
-    title       String      
-    description String      
-    stipend     Int         
-    location    String     
-    skill_required  String[]
-    deadline    DateTime
-    status      InternshipStatus    @default(OPEN)
+model Internship {
+  id             String           @id @default(uuid())
+  title          String
+  description    String
+  stipend        Int
+  location       String
+  skill_required String[]
+  deadline       DateTime
+  status         InternshipStatus @default(OPEN)
 
-    created_at DateTime @default(now()) 
-    updated_at DateTime @updatedAt 
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-    //relations   
-    created_by  String   
-    recruiter   User        @relation(fields: [created_by],references: [id])
+  //relations   
+  created_by String
+  recruiter  User   @relation(fields: [created_by], references: [id])
 
-    applications    Application[]
+  applications Application[]
 
-    @@map("internships")
+  @@map("internships")
 }
 
-model Application{
-    id          String      @id @default(uuid())
-    resume      String
-    status      ApplicationStatus
+model Application {
+  id        String            @id @default(uuid())
+  resumeUrl String
+  status    ApplicationStatus @default(APPLIED)
 
-    created_at DateTime @default(now()) 
-    updated_at DateTime @updatedAt 
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-    //realtions
-    internship_id   String   
-    internship   Internship      @relation(fields: [internship_id],references: [id])
+  //realtions
+  internship_id String
+  internship    Internship @relation(fields: [internship_id], references: [id])
 
-    submitted_by    String
-    candidate   User            @relation(fields: [submitted_by],references: [id])
+  submitted_by String
+  candidate    User   @relation(fields: [submitted_by], references: [id])
 
-    @@map("applications")
+  @@map("applications")
 }
