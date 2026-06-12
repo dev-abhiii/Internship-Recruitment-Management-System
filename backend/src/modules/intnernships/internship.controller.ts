@@ -159,3 +159,29 @@ export const deleteInternship = asyncHandler(async(req:AuthRequest, res) => {
         message : `Internship with ${id} deleted successfully`
     })
 })
+
+
+export const getSingleInternship = asyncHandler(async (req:AuthRequest, res) => {
+    const {id} =req.params;
+
+    const internship = await prisma.internship.findUnique({
+        where: {id: String(id)},
+        include: {
+            recruiter: {
+                select: {
+                    name: true, email: true
+                }
+            }
+        }
+    })
+
+    if(!internship){
+        res.status(404);
+        throw new Error("No internship found");
+    }
+
+    res.status(200).json({
+        success: true,
+        data : internship
+    });
+})
