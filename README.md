@@ -4,8 +4,8 @@ A robust, production-ready RESTful API designed to streamline the job posting an
 
 LIVE URL - https://internship-recruitment-management-system.onrender.com/
 
-
 HEALTH - https://internship-recruitment-management-system.onrender.com/health
+
 ---
 
 ## ✨ Core Features & Role Capabilities
