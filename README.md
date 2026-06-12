@@ -3,6 +3,8 @@
 A robust, production-ready RESTful API designed to streamline the job posting and application lifecycle. Engineered with a focus on strict Role-Based Access Control (RBAC), data normalization, and secure authentication, this backend serves as the foundation for a multi-sided recruitment platform.
 
 LIVE URL - https://internship-recruitment-management-system.onrender.com/
+
+
 HEALTH - https://internship-recruitment-management-system.onrender.com/health
 ---
 
