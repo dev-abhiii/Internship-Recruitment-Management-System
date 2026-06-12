@@ -34,16 +34,11 @@ export const RecruiterStats = asyncHandler(async (req: AuthRequest, res) => {
     });
 });
 
-// (this route shared by both Recruiter and Admin )
-export const totalInternships = asyncHandler( async(req: AuthRequest, res) => {
+export const recruiterInternships = asyncHandler( async(req: AuthRequest, res) => {
     const userId = req.user?.userId;
-    const userRole = req.user?.role;
-
-    // assigning empty object to ADMINS so they get full access
-    const queryCondition = userRole === 'ADMIN' ? {} : { created_by: String(userId) };
 
     const internships = await prisma.internship.findMany({
-        where: queryCondition
+        where: { created_by: String(userId) }
     });
     
     res.status(200).json({
@@ -117,6 +112,20 @@ export const AdminStats = asyncHandler(async (req: AuthRequest, res) => {
         }
     });
 });
+
+export const adminInternships = asyncHandler( async(req: AuthRequest, res) => {
+
+    const internships = await prisma.internship.findMany();
+    
+    res.status(200).json({
+        success: true,
+        data: {
+            totalInternships: internships.length,
+            internships
+        }
+    })
+})
+
 
 
 export const totalUsers = asyncHandler( async( req: AuthRequest, res) => {
