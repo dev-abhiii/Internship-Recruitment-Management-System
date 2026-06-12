@@ -1,4 +1,3 @@
-```markdown
 # 🗄️ Database Architecture
 
 This document outlines the data layer of the Internship Recruitment Management System. It includes both the logical Entity-Relationship (ER) model and the physical database schema (Data Dictionary) implemented in PostgreSQL via Prisma.

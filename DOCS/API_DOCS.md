@@ -1,4 +1,3 @@
-```markdown
 # 📡 API Reference Documentation
 **Base URL (Local):** `http://localhost:5000`  
 **Base URL (Production):** `https://your-production-url.onrender.com`
@@ -23,7 +22,7 @@ Registers a new user in the system.
     "password": "password123",
     "role": "RECRUITER" // Must be 'ADMIN', 'RECRUITER', or 'CANDIDATE'
   }
-
+  
 ```
 
 ### `POST /auth/login`

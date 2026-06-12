@@ -1,4 +1,3 @@
-```markdown
 # 🚀 Internship Recruitment Management System
 
 A robust, production-ready RESTful API designed to streamline the job posting and application lifecycle. Engineered with a focus on strict Role-Based Access Control (RBAC), data normalization, and secure authentication, this backend serves as the foundation for a multi-sided recruitment platform.
@@ -27,6 +26,7 @@ HEALTH - https://internship-recruitment-management-system.onrender.com/health
 * **Global Dashboard:** View aggregated data including total registered users, total system-wide internships, and the active recruiter count.
 
 ---
+```markdown
 
 ## 🛠️ Technology Stack
 
@@ -144,7 +144,5 @@ This API is configured for deployment on platforms like **Render**, using **Supa
 * **Start Command:** `npm start`
 
 > **Note on IPv4 Environments:** When deploying on free-tier services that utilize IPv4 networks (like Render), ensure your Supabase `DATABASE_URL` uses the **Session Pooler** connection string rather than the Direct Connection string to prevent DNS resolution errors.
-
-```
 
 ```
