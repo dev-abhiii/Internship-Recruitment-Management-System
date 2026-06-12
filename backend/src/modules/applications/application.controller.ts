@@ -1,9 +1,8 @@
 import asyncHandler from "express-async-handler";
 import type {AuthRequest}from "../../middlewares/auth.ts";
-import {string, success, z} from "zod";
+import {z} from "zod";
 import { ApplicationStatus } from "@prisma/client";
 import prisma from "../../db.ts";
-import app from "../../app.ts";
 
 
 // Zod Schemas
