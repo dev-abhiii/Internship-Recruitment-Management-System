@@ -5,6 +5,7 @@ backend/node_modules/
 # Environment variables (CRITICAL)
 .env
 backend/.env
+frontend/.env
 
 # Prisma generated files (if any)
 *.prisma

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function Login() {
 
@@ -14,9 +15,9 @@ export default function Login() {
         setError('');
 
         try{
-        const response = await fetch('https://internship-recruitment-management-system.onrender.com/auth/login', {
+        const response = await fetch(`${API_URL}/auth/login`, {
             method : 'POST',
-            headers: {'Content-type': 'application/json'},
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email,password}),
         });
 
@@ -60,7 +61,7 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded-lg border border-slate-300 p-3 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              placeholder="admin@system.com"
+              placeholder="Enter your Email"
             />
           </div>
 
@@ -74,7 +75,7 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full rounded-lg border border-slate-300 p-3 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              placeholder="••••••••"
+              placeholder="Enter password"
             />
           </div>
 
