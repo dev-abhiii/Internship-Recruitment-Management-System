@@ -4,9 +4,11 @@ import internshipRoutes from './modules/intnernships/internship.routes.ts'
 import applicationRoutes from './modules/applications/application.routes.ts'
 import dashboardRoutes from './modules/dashboard/dashboard.routes.ts'
 import { errorHandler } from './middlewares/errorHandling.ts';
+import cors from 'cors';
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 // health route
